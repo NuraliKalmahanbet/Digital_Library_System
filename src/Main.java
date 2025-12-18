@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        Book book1 = new Book("1984", "George Orwell", "12345", true);
+        Book book1 = new Book("1984", "George Orwell", "12347", true);
         Book book2 = new Book("Brave New World", "Aldous Huxley", "54321", true);
         Book book3 = new Book("1984", "George Orwell", "12345", true);
 
