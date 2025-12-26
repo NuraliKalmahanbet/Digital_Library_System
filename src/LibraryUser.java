@@ -1,29 +1,22 @@
-public class LibraryUser {
-    private String name;
+public class LibraryUser extends Person {
     private int userId;
 
     public LibraryUser(String name, int userId) {
-        this.name = name;
+        super(name);
         this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    @Override
+    public String getRole() {
+        return "Library User";
     }
 
-    public void displayInfo() {
-        System.out.println("User: " + name + ", ID: " + userId);
+    @Override
+    public String toString() {
+        return "User: " + name + " (ID: " + userId + ")";
     }
 }

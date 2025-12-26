@@ -1,54 +1,48 @@
 public class Book {
     private String title;
     private String author;
-    private String ISBN;
-    private boolean isAvailable;
+    private int year;
+    private boolean available;
 
-    public Book(String title, String author, String ISBN, boolean isAvailable) {
+    public Book(String title, String author, int year) {
         this.title = title;
         this.author = author;
-        this.ISBN = ISBN;
-        this.isAvailable = isAvailable;
+        this.year = year;
+        this.available = true;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getISBN() {
-        return ISBN;
-    }
-
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public int getYear() {
+        return year;
     }
 
     public boolean isAvailable() {
-        return isAvailable;
+        return available;
     }
 
     public void setAvailable(boolean available) {
-        isAvailable = available;
+        this.available = available;
     }
 
-    public void displayInfo() {
-        System.out.println("Book: " + title + ", Author: " + author +
-                ", ISBN: " + ISBN + ", Available: " + isAvailable);
+    @Override
+    public String toString() {
+        return title + " by " + author + " (" + year + ") - "
+                + (available ? "Available" : "Borrowed");
     }
 
-    public boolean equals(Book otherBook) {
-        return this.ISBN.equals(otherBook.getISBN());
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Book)) return false;
+        Book book = (Book) obj;
+        return title.equals(book.title) && author.equals(book.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return title.hashCode() + author.hashCode();
     }
 }

@@ -1,22 +1,68 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        Book book1 = new Book("1984", "George Orwell", "12345", true);
-        Book book2 = new Book("Brave New World", "Aldous Huxley", "54321", true);
-        Book book3 = new Book("1984", "George Orwell", "12345", true);
+        Scanner scanner = new Scanner(System.in);
+        Library library = new Library();
 
-        System.out.println(book1.equals(book3));
-        System.out.println(book1.equals(book2));
+        Person user = new LibraryUser("Nurali", 1);
+        System.out.println("Welcome, " + user.getName() + " (" + user.getRole() + ")");
 
-        Library library = new Library("City Library");
-        library.addBook(book1);
-        library.addBook(book2);
+        while (true) {
+            System.out.println("\n--- Digital Library Menu ---");
+            System.out.println("1. Add book");
+            System.out.println("2. Show all books");
+            System.out.println("3. Search book by title");
+            System.out.println("4. Show available books");
+            System.out.println("5. Sort books by year");
+            System.out.println("0. Exit");
+            System.out.print("Choose option: ");
 
-        library.displayBooks();
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-        LibraryUser user1 = new LibraryUser("Alice", 1);
-        LibraryUser user2 = new LibraryUser("Bob", 2);
+            if (choice == 0) {
+                System.out.println("Goodbye!");
+                break;
+            }
 
-        user1.displayInfo();
-        user2.displayInfo();
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter title: ");
+                    String title = scanner.nextLine();
+
+                    System.out.print("Enter author: ");
+                    String author = scanner.nextLine();
+
+                    System.out.print("Enter year: ");
+                    int year = scanner.nextInt();
+
+                    library.addBook(new Book(title, author, year));
+                    System.out.println("Book added.");
+                    break;
+
+                case 2:
+                    library.showAllBooks();
+                    break;
+
+                case 3:
+                    System.out.print("Enter title to search: ");
+                    String searchTitle = scanner.nextLine();
+                    library.searchByTitle(searchTitle);
+                    break;
+
+                case 4:
+                    library.showAvailableBooks();
+                    break;
+
+                case 5:
+                    library.sortByYear();
+                    break;
+
+                default:
+                    System.out.println("Invalid option.");
+            }
+        }
+        scanner.close();
     }
 }

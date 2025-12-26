@@ -1,41 +1,52 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 public class Library {
-    private String name;
-    private ArrayList<Book> books;
-
-    public Library(String name) {
-        this.name = name;
-        books = new ArrayList<>();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ArrayList<Book> getBooks() {
-        return books;
-    }
+    private ArrayList<Book> books = new ArrayList<>();
 
     public void addBook(Book book) {
         books.add(book);
     }
 
-    public void displayBooks() {
+    public void showAllBooks() {
+        if (books.isEmpty()) {
+            System.out.println("No books in library.");
+            return;
+        }
         for (Book book : books) {
-            book.displayInfo();
+            System.out.println(book);
         }
     }
 
-    public Book findBookByISBN(String ISBN) {
+    public void searchByTitle(String title) {
+        boolean found = false;
         for (Book book : books) {
-            if (book.getISBN().equals(ISBN)) {
-                return book;
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                System.out.println(book);
+                found = true;
             }
         }
-        return null;
+        if (!found) {
+            System.out.println("Book not found.");
+        }
+    }
+
+    public void showAvailableBooks() {
+        boolean found = false;
+        for (Book book : books) {
+            if (book.isAvailable()) {
+                System.out.println(book);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No available books.");
+        }
+    }
+
+    public void sortByYear() {
+        Collections.sort(books, Comparator.comparingInt(Book::getYear));
+        System.out.println("Books sorted by year.");
     }
 }
