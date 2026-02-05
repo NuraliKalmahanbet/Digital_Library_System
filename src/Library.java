@@ -1,8 +1,8 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class Library {
+
     private ArrayList<Book> books = new ArrayList<>();
 
     public void addBook(Book book) {
@@ -14,39 +14,53 @@ public class Library {
             System.out.println("No books in library.");
             return;
         }
-        for (Book book : books) {
-            System.out.println(book);
-        }
+
+        books.stream()
+                .sorted(Comparator.comparing(Book::getTitle, String.CASE_INSENSITIVE_ORDER))
+                .forEach(System.out::println);
     }
 
-    public void searchByTitle(String title) {
-        boolean found = false;
-        for (Book book : books) {
-            if (book.getTitle().equalsIgnoreCase(title)) {
-                System.out.println(book);
-                found = true;
-            }
-        }
+    public void searchBookByTitle(String title) {
+        String q = (title == null) ? "" : title.trim().toLowerCase();
+
+        boolean found = books.stream()
+                .anyMatch(b -> b.getTitle().toLowerCase().contains(q));
+
         if (!found) {
             System.out.println("Book not found.");
+            return;
         }
+
+        books.stream()
+                .filter(b -> b.getTitle().toLowerCase().contains(q))
+                .forEach(System.out::println);
     }
 
     public void showAvailableBooks() {
-        boolean found = false;
-        for (Book book : books) {
-            if (book.isAvailable()) {
-                System.out.println(book);
-                found = true;
-            }
-        }
-        if (!found) {
+        boolean any = books.stream().anyMatch(Book::isAvailable);
+
+        if (!any) {
             System.out.println("No available books.");
+            return;
         }
+
+        books.stream()
+                .filter(Book::isAvailable)
+                .forEach(System.out::println);
+    }
+
+    public void searchByTitle(String title) {
+        searchBookByTitle(title);
     }
 
     public void sortByYear() {
-        Collections.sort(books, Comparator.comparingInt(Book::getYear));
-        System.out.println("Books sorted by year.");
+        if (books.isEmpty()) {
+            System.out.println("No books in library.");
+            return;
+        }
+
+        books.stream()
+                .sorted(Comparator.comparingInt(Book::getYear))
+                .forEach(System.out::println);
     }
 }

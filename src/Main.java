@@ -13,6 +13,14 @@ public class Main {
         Person user = new LibraryUser("Nurali", 1);
         System.out.println("Welcome, " + user.getName() + " (" + user.getRole() + ")");
 
+        BookService service = ServiceFactory.createBookService();
+        service.create(Book.builder()
+                .title("Demo Book")
+                .author("Test Author")
+                .year(2024)
+                .build());
+        System.out.println(service.getAll());
+
         while (true) {
             System.out.println("\n--- Digital Library Menu ---");
             System.out.println("1. Add book");
@@ -259,7 +267,7 @@ public class Main {
             System.out.print("Email: ");
             String email = scanner.nextLine();
 
-            String sql = "INSERT INTO library_users (name, email) VALUES (?, ?)";
+            String sql = "INSERT INTO library_users (name,  email) VALUES (?, ?)";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, name);
                 ps.setString(2, email);
