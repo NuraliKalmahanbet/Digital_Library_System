@@ -2,7 +2,6 @@
 
 ![Java](https://img.shields.io/badge/Java-17%2B-orange.svg)
 ![OOP](https://img.shields.io/badge/Architecture-OOP-success.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 Консольная система управления цифровой библиотекой, разработанная на языке **Java**. Проект построен на принципах объектно-ориентированного программирования (ООП) и демонстрирует навыки проектирования чистой архитектуры, работы с коллекциями (Java Collections Framework) и обработки данных.
 
